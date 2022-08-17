@@ -8,13 +8,11 @@ Fork [ygunoil/react-ueditor-xiumi](https://gitee.com/ygunoil/react-ueditor-xiumi
 5. 上传视频弹窗中，高度宽度之前只能填像素值，不能填百分比，现将数字框改为文本框以支持百分比。另外，宽度默认设置为 100%
 6. 上传音视频弹窗中，“直接上传”之前是任意文件都可以选，改为上传音频就只能选择音频相关的文件（如：mp3、wav 等），视频就只能选择视频相关的文件（如：mp4、avi 等）
 
-# react-ueditor-xiumi
-![react-ueditor-xiumi](https://cloud-minapp-1131.cloud.ifanrusercontent.com/1eGmM9tnLMPCRifj.png)
 
 ### 下载
 ```
-  npm:    npm i react-ueditor-xiumi -S
-  yarn:   yarn add react-ueditor-xiumi
+  npm:    npm i @bzzndata/react-ueditor-xiumi -S
+  yarn:   yarn add @bzzndata/react-ueditor-xiumi
 ```
 
 ### 使用
@@ -24,7 +22,7 @@ Fork [ygunoil/react-ueditor-xiumi](https://gitee.com/ygunoil/react-ueditor-xiumi
 
 #### 使用组件
 ```
-import ReactUeditor from 'react-ueditor-xiumi'
+import ReactUeditor from '@bzzndata/react-ueditor-xiumi'
 
 <ReactUeditor
   config={{zIndex: 1001}}
