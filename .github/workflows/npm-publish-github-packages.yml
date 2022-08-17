@@ -34,4 +34,4 @@ jobs:
       - run: npm publish
         env:
           # 由于在 Settings 里没有 secrets 配置菜单，故这里写死 token
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: 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
