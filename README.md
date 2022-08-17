@@ -1,9 +1,18 @@
+Fork [ygunoil/react-ueditor-xiumi](https://gitee.com/ygunoil/react-ueditor-xiumi/)
+
+# Fork 后的主要改动点
+1. 上传音视频弹窗，关闭弹窗后再次打开，清空上一次上传或填写的内容。
+2. 将音视频的参数汉化。
+3. 在弹框中上传完音视频后，自动添加链接，避免用户忘记点击“添加”按钮
+4. 上传音频弹窗中去掉参数：poster、name、author
+5. 上传视频弹窗中，高度宽度之前只能填像素值，不能填百分比，现将数字框改为文本框以支持百分比。另外，宽度默认设置为 100%
+6. 上传音视频弹窗中，“直接上传”之前是任意文件都可以选，改为上传音频就只能选择音频相关的文件（如：mp3、wav 等），视频就只能选择视频相关的文件（如：mp4、avi 等）
+
 # react-ueditor-xiumi
 ![react-ueditor-xiumi](https://cloud-minapp-1131.cloud.ifanrusercontent.com/1eGmM9tnLMPCRifj.png)
 
 ### 下载
 ```
-  github: npm i https://gitee.com/ygunoil/react-ueditor-xiumi.git -S
   npm:    npm i react-ueditor-xiumi -S
   yarn:   yarn add react-ueditor-xiumi
 ```
@@ -111,31 +120,3 @@ getEditorContent = () => {
 - example.js, index.html, dist/ 都只是为了展示 ReactUeditor 的真实效果，主要代码在 ReactUeditor/ 中
 
 - 需要修改 ueditor 源码时，直接修改 ueditor 目录下的文件，修改完执行：`cd ueditor` 和 `yarn run grunt` 命令，此时会重新生成 ueditor 构建成功的文件到 vendor/ueditor
-
-
-### 贡献者
-
-<table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" >
-        <a href="https://github.com/yaokailun">
-          <img src="https://avatars2.githubusercontent.com/u/11460856" width="75px" height="75px"><br/>
-          <sub>kailunyao</sub>
-        </a>
-      </td>
-      <td align="center" valign="top" >
-        <a href="https://github.com/larry011">
-          <img src="https://avatars1.githubusercontent.com/u/10259971" width="75px" height="75px"><br/>
-          <sub>larry011</sub>
-        </a>
-      </td>
-      <td align="center" valign="top">
-        <a href="https://github.com/luckystar12">
-          <img src="https://avatars2.githubusercontent.com/u/16440931" width="75px" height="75px"><br/>
-          <sub>luckystar12</sub>
-        </a>
-      </td>
-    </tr>
-  </tbody>
-</table>
