@@ -17,7 +17,7 @@
     "ueditor",
     "react"
   ],
-  "author": "KaiLunYao",
+  "author": "bzzn",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/bzzndata/react-ueditor-xiumi/issues"
@@ -26,7 +26,8 @@
   "files": [
     "lib",
     "LICENSE",
-    "README.md"
+    "README.md",
+    "CHANGELOG.md"
   ],
   "dependencies": {
     "rc-dialog": "6.5.11"
