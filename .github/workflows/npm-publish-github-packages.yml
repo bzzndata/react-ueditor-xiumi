@@ -16,7 +16,7 @@ jobs:
         with:
           node-version: 16
       - run: npm ci
-      - run: npm test
+      - run: npm run build
 
   publish-gpr:
     needs: build
@@ -33,4 +33,5 @@ jobs:
       - run: npm ci
       - run: npm publish
         env:
-          NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+          # 由于在 Settings 里没有 secrets 配置菜单，故这里写死 token
+          NODE_AUTH_TOKEN: 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
