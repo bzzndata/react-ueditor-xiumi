@@ -289,26 +289,26 @@ class ReactUeditor extends React.Component {
           onChange={this.uploadImage}
           style={{visibility: 'hidden'}}
           multiple={multipleImagesUpload} />
-        <UploadModal
+        {videoModalVisible && <UploadModal
           type='video'
           title='上传视频'
-          visible={videoModalVisible}
+          visible
           closeModal={() => {
             this.closeModal('video')
           }}
           insert={this.insert}
           upload={uploadVideo}
-          progress={progress} />
-        <UploadModal
+          progress={progress} />}
+        {audioModalVisible && <UploadModal
           type='audio'
           title='上传音频'
-          visible={audioModalVisible}
+          visible
           closeModal={() => {
             this.closeModal('audio')
           }}
           insert={this.insert}
           upload={uploadAudio}
-          progress={progress} />
+          progress={progress} />}
       </div>
     )
   }
