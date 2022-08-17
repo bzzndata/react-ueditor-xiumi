@@ -33,5 +33,4 @@ jobs:
       - run: yarn --frozen-lockfile
       - run: npm publish
         env:
-          # 由于在 Settings 里没有 secrets 配置菜单，故这里写死 token
-          NODE_AUTH_TOKEN: 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
+          NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
