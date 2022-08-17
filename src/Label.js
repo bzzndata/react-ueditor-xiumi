@@ -6,6 +6,7 @@ const labelStyle = {
   color: 'rgba(0, 0, 0, 0.65)',
   marginRight: '20px',
   marginBottom: '10px',
+  fontSize: '12px',
 }
 
 const labelName = {
