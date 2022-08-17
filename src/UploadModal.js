@@ -261,9 +261,11 @@ class UploadModal extends React.Component {
   }
 
   render() {
-    let {currentSource, errorMsg, errorMsgVisible} = this.state
+    let {currentSource, errorMsg, errorMsgVisible,sources} = this.state
     let {type, title, visible, progress} = this.props
     const accept = acceptMap[type];
+    // 为空时，要设置为空字符串 ''，否则为 undefined 时，删除最后一个已添加的链接，仍然会显示预览 source
+    const previewSource = sources[sources.length - 1] || '';
 
     return (
       <Modal
@@ -297,10 +299,10 @@ class UploadModal extends React.Component {
           <div style={{textAlign: 'center', padding: '20px 10px 0 10px'}}>
             {
               type === 'audio'
-                ? <audio src={currentSource} controls='controls' style={{width: '100%'}}>
+                ? <audio src={previewSource} controls='controls' style={{width: '100%'}}>
                 你的浏览器不支持 audio 标签
                 </audio>
-                : <video src={currentSource} controls='controls'
+                : <video src={previewSource} controls='controls'
                   style={{width: '100%', height: '250px', backgroundColor: '#000'}}>
                 你的浏览器不支持 video 标签
                 </video>
