@@ -15,7 +15,7 @@ jobs:
       - uses: actions/setup-node@v3
         with:
           node-version: 16
-      - run: npm ci
+      - run: yarn --frozen-lockfile
       - run: npm run build
 
   publish-gpr:
@@ -30,7 +30,7 @@ jobs:
         with:
           node-version: 16
           registry-url: https://npm.pkg.github.com/
-      - run: npm ci
+      - run: yarn --frozen-lockfile
       - run: npm publish
         env:
           # 由于在 Settings 里没有 secrets 配置菜单，故这里写死 token
