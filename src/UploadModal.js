@@ -44,13 +44,18 @@ const style = {
 
 const linkRegx = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9,_-](\?)?)*)*$/i
 
+const acceptMap = {
+  audio: 'audio/*',
+  video: 'video/*',
+}
+
 let timeoutInstance = null
 
 class UploadModal extends React.Component {
   state = {
     sources: [],
     currentSource: '',
-    width: 400,
+    width: '100%',
     height: 400,
     controls: 'true',
     autoplay: 'false',
@@ -96,7 +101,7 @@ class UploadModal extends React.Component {
     if (!upload) return
 
     upload(e).then(url => {
-      this.setState({currentSource: url})
+      this.setState({currentSource: url}, this.addSource)
     }).catch(e => {
       e.constructor === Error ? this.showErrorMsg(e.message) : this.showErrorMsg(e)
     })
@@ -130,9 +135,9 @@ class UploadModal extends React.Component {
       attr += loop === 'false' ? '' : ' loop="true" '
       if (type === 'audio') {
         if (len === 1) {
-          html = `<audio src="${sources[0]}" ${attr} data-extra='${dataExtra}'>你的浏览器不支持 audio 标签</audio>`
+          html = `<audio style="width:100%" src="${sources[0]}" ${attr} data-extra='${dataExtra}'>你的浏览器不支持 audio 标签</audio>`
         } else {
-          html = `<audio ${attr} data-extra='${dataExtra}'>`
+          html = `<audio style="width:100%" ${attr} data-extra='${dataExtra}'>`
           sources.forEach(source => {
             html += `<source src=${source} type="audio/${this.getFileType(source, 'audio')}">`
           })
@@ -165,13 +170,17 @@ class UploadModal extends React.Component {
   changeConfig = (e, type) => {
     let value = e.target.value
     let boolType = ['controls', 'autoplay', 'muted', 'loop']
-    if (type === 'width' || type === 'height') {
-      if (isNaN(parseInt(value))) {
-        value = parseInt(value)
-      }
-    } else if (boolType.indexOf(type) !== -1) {
-      value = !!value
-    }
+    // fork 之前这段代码只能设置像素，为了支持百分比，故注释掉
+    // if (type === 'width' || type === 'height') {
+    //   if (isNaN(parseInt(value))) {
+    //     value = parseInt(value)
+    //   }
+    // } 
+
+    // fork 之前这段代码会导致 'controls', 'autoplay', 'muted', 'loop' 字段无论选择什么，结果都为 true，故注释掉
+    // else if (boolType.indexOf(type) !== -1) {
+    //   value = !!value
+    // }
     this.setState({[type]: value})
   }
 
@@ -191,34 +200,34 @@ class UploadModal extends React.Component {
     let {width, height, controls, autoplay, muted, loop} = this.state
     return (
       <form style={style.paramsConfig}>
-        <Label name='width'>
-          <Input type='number' defaultValue={width} onChange={e => { this.changeConfig(e, 'width') }} />
+        <Label name='宽度'>
+          <Input type='text' value={width} onChange={e => { this.changeConfig(e, 'width') }} />
         </Label>
-        <Label name='height'>
-          <Input type='number' defaultValue={height} onChange={e => { this.changeConfig(e, 'height') }} />
+        <Label name='高度'>
+          <Input type='text' value={height} onChange={e => { this.changeConfig(e, 'height') }} />
         </Label>
-        <Label name='controls'>
-          <Select defaultValue={controls} onChange={e => { this.changeConfig(e, 'controls') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='控制面板'>
+          <Select value={controls} onChange={e => { this.changeConfig(e, 'controls') }}>
+            <option value='true'>显示</option>
+            <option value='false'>不显示</option>
           </Select>
         </Label>
-        <Label name='autoplay'>
-          <Select defaultValue={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='自动播放'>
+          <Select value={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
+            <option value='true'>是</option>
+            <option value='false'>否</option>
           </Select>
         </Label>
-        <Label name='muted'>
-          <Select defaultValue={muted} onChange={e => { this.changeConfig(e, 'muted') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='静音'>
+          <Select value={muted} onChange={e => { this.changeConfig(e, 'muted') }}>
+            <option value='true'>是</option>
+            <option value='false'>否</option>
           </Select>
         </Label>
-        <Label name='loop'>
-          <Select defaultValue={loop} onChange={e => { this.changeConfig(e, 'loop') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='循环播放'>
+          <Select value={loop} onChange={e => { this.changeConfig(e, 'loop') }}>
+            <option value='true'>是</option>
+            <option value='false'>否</option>
           </Select>
         </Label>
       </form>
@@ -229,32 +238,23 @@ class UploadModal extends React.Component {
     let {controls, autoplay, loop, poster, name, author} = this.state
     return (
       <form style={style.paramsConfig}>
-        <Label name='controls'>
-          <Select defaultValue={controls} onChange={e => { this.changeConfig(e, 'controls') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='控制面板'>
+          <Select value={controls} onChange={e => { this.changeConfig(e, 'controls') }}>
+            <option value='true'>显示</option>
+            <option value='false'>不显示</option>
           </Select>
         </Label>
-        <Label name='autoplay'>
-          <Select defaultValue={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='自动播放'>
+          <Select value={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
+            <option value='true'>是</option>
+            <option value='false'>否</option>
           </Select>
         </Label>
-        <Label name='loop'>
-          <Select defaultValue={loop} onChange={e => { this.changeConfig(e, 'loop') }}>
-            <option value='true'>true</option>
-            <option value='false'>false</option>
+        <Label name='循环播放'>
+          <Select value={loop} onChange={e => { this.changeConfig(e, 'loop') }}>
+            <option value='true'>是</option>
+            <option value='false'>否</option>
           </Select>
-        </Label>
-        <Label name='poster'>
-          <Input type='text' defaultValue={poster} onChange={e => { this.changeConfig(e, 'poster') }} />
-        </Label>
-        <Label name='name'>
-          <Input type='text' defaultValue={name} onChange={e => { this.changeConfig(e, 'name') }} />
-        </Label>
-        <Label name='author'>
-          <Input type='text' defaultValue={author} onChange={e => { this.changeConfig(e, 'author') }} />
         </Label>
       </form>
     )
@@ -263,6 +263,7 @@ class UploadModal extends React.Component {
   render() {
     let {currentSource, errorMsg, errorMsgVisible} = this.state
     let {type, title, visible, progress} = this.props
+    const accept = acceptMap[type];
 
     return (
       <Modal
@@ -280,7 +281,7 @@ class UploadModal extends React.Component {
             <span style={style.insertTitle}>插入链接</span>
             <Input style={{width: '300px'}} type='text' value={currentSource} onChange={this.updateCurrentSource} />
             <Button onClick={this.addSource}>添加</Button>
-            <Upload onChange={this.upload} />
+            <Upload onChange={this.upload} accept={accept} />
           </div>
           <div>
             <span style={{...style.warnInfo, display: progress && progress !== -1 ? 'block' : 'none'}}>
@@ -296,11 +297,11 @@ class UploadModal extends React.Component {
           <div style={{textAlign: 'center', padding: '20px 10px 0 10px'}}>
             {
               type === 'audio'
-                ? <audio src={currentSource} controls='controls' style={{width: '400px'}}>
+                ? <audio src={currentSource} controls='controls' style={{width: '100%'}}>
                 你的浏览器不支持 audio 标签
                 </audio>
                 : <video src={currentSource} controls='controls'
-                  style={{width: '400px', height: '250px', backgroundColor: '#000'}}>
+                  style={{width: '100%', height: '250px', backgroundColor: '#000'}}>
                 你的浏览器不支持 video 标签
                 </video>
             }

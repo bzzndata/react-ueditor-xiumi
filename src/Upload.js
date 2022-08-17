@@ -27,9 +27,10 @@ class Upload extends React.Component {
   }
 
   render() {
+    const { accept } = this.props
     return (
       <label style={uploadStyle}>直接上传
-        <input type='file' onChange={this.onInputChange} style={{display: 'none'}} />
+        <input type='file' onChange={this.onInputChange} style={{display: 'none'}} accept={accept} />
       </label>
     )
   }
