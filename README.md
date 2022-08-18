@@ -9,6 +9,7 @@ Fork [ygunoil/react-ueditor-xiumi](https://gitee.com/ygunoil/react-ueditor-xiumi
 6. 上传音视频弹窗中，“直接上传”之前是任意文件都可以选，改为上传音频就只能选择音频相关的文件（如：mp3、wav 等），视频就只能选择视频相关的文件（如：mp4、avi 等）
 7. 上传音视频弹窗中，预览音视频之前是预览输入框中链接对应的资源，改为预览最后一个“添加”到列表的资源
 8. 上传音视频过程中，有 loading 动画代替进度百分比
+9. 增加 maxAudioMB 和 maxVideoMB 属性，分别限制最大可上传音视频的兆字节数
 
 ### 下载
 ```

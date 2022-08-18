@@ -41,6 +41,16 @@ const style = {
     fontSize: '12px',
     color: '#f04134',
   },
+  loadingInfo: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '100%',
+    margin: '5px',
+    textAlign: 'center',
+    fontSize: '12px',
+    color: 'rgba(0, 0, 0, 0.5)',
+  }
 }
 
 const linkRegx = /^https?:\/\/(([a-zA-Z0-9_-])+(\.)?)*(:\d+)?(\/((\.)?(\?)?=?&?[a-zA-Z0-9,_-](\?)?)*)*$/i
@@ -98,9 +108,15 @@ class UploadModal extends React.Component {
   }
 
   upload = e => {
-    let {upload} = this.props
+    let { upload,maxFileMB } = this.props
 
     if (!upload) return
+
+    const { size } = e.target.files[0] || {}
+    if (maxFileMB > 0 && size > maxFileMB * 1024 * 1024) {
+      this.showErrorMsg(`文件大小不能超过${maxFileMB}MB`);
+      return
+    }
 
     this.setState({ uploading: true })
     upload(e).then(url => {
@@ -266,7 +282,7 @@ class UploadModal extends React.Component {
 
   render() {
     let {currentSource, errorMsg, errorMsgVisible, sources, uploading} = this.state
-    let {type, title, visible, progress} = this.props
+    let {type, title, visible, progress, maxFileMB} = this.props
     const accept = acceptMap[type];
     // 为空时，要设置为空字符串 ''，否则为 undefined 时，删除最后一个已添加的链接，仍然会显示预览 source
     const previewSource = sources[sources.length - 1] || '';
@@ -290,9 +306,9 @@ class UploadModal extends React.Component {
             <Upload onChange={this.upload} accept={accept} />
           </div>
           <div>
-            <span style={{...style.warnInfo, display: uploading ? 'block' : 'none'}}>
-              <Loading />
-            </span>
+            {uploading && <span style={{...style.loadingInfo}}>
+              <Loading />&nbsp;&nbsp;上传中
+            </span>}
             <span style={{...style.warnInfo, display: errorMsgVisible ? 'block' : 'none'}}>{errorMsg}</span>
           </div>
           <div style={style.sourceList}>

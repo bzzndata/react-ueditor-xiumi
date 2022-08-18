@@ -81,6 +81,8 @@ class App extends React.Component {
           progress={progress}
           multipleImagesUpload={false}
           onReady={this.handleReady}
+          maxVideoMB={100}
+          maxAudioMB={10}
         />
         <button onClick={this.getUeditorContent}>获取内容1</button>
         <p>{content}</p>
