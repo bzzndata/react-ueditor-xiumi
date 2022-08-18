@@ -13,9 +13,9 @@ const selectStyle = {
 
 class Select extends React.Component {
   render() {
-    let {style, children, defaultValue, onChange} = this.props
+    let {style, children, defaultValue, onChange, value} = this.props
     let mergedStyle = {...selectStyle, ...style}
-    return <select style={mergedStyle} defaultValue={defaultValue} onChange={onChange}>{children}</select>
+    return <select style={mergedStyle} defaultValue={defaultValue} value={value} onChange={onChange}>{children}</select>
   }
 }
 
