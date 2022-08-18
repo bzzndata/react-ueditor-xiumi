@@ -67,6 +67,7 @@ class UploadModal extends React.Component {
     author: '',
     errorMsg: '',
     errorMsgVisible: false,
+    uploading: false,
   }
 
   updateCurrentSource = e => {
@@ -101,9 +102,11 @@ class UploadModal extends React.Component {
 
     if (!upload) return
 
+    this.setState({ uploading: true })
     upload(e).then(url => {
-      this.setState({currentSource: url}, this.addSource)
+      this.setState({currentSource: url, uploading: false }, this.addSource)
     }).catch(e => {
+      this.setState({ uploading: false })
       e.constructor === Error ? this.showErrorMsg(e.message) : this.showErrorMsg(e)
     })
   }
@@ -262,7 +265,7 @@ class UploadModal extends React.Component {
   }
 
   render() {
-    let {currentSource, errorMsg, errorMsgVisible,sources} = this.state
+    let {currentSource, errorMsg, errorMsgVisible, sources, uploading} = this.state
     let {type, title, visible, progress} = this.props
     const accept = acceptMap[type];
     // 为空时，要设置为空字符串 ''，否则为 undefined 时，删除最后一个已添加的链接，仍然会显示预览 source
@@ -287,7 +290,7 @@ class UploadModal extends React.Component {
             <Upload onChange={this.upload} accept={accept} />
           </div>
           <div>
-            <span style={{...style.warnInfo, display: progress && progress !== -1 ? 'block' : 'none'}}>
+            <span style={{...style.warnInfo, display: uploading ? 'block' : 'none'}}>
               <Loading />
             </span>
             <span style={{...style.warnInfo, display: errorMsgVisible ? 'block' : 'none'}}>{errorMsg}</span>

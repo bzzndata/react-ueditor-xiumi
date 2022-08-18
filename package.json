@@ -1,6 +1,6 @@
 {
   "name": "@bzzndata/react-ueditor-xiumi",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "an ueditor component for react",
   "main": "lib",
   "scripts": {
