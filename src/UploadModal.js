@@ -6,6 +6,7 @@ import React from 'react'
 import Select from './Select'
 import Tag from './Tag'
 import Upload from './Upload'
+import Loading from './Loading'
 import 'rc-dialog/assets/index.css'
 
 const style = {
@@ -287,7 +288,7 @@ class UploadModal extends React.Component {
           </div>
           <div>
             <span style={{...style.warnInfo, display: progress && progress !== -1 ? 'block' : 'none'}}>
-              {progress}%
+              <Loading />
             </span>
             <span style={{...style.warnInfo, display: errorMsgVisible ? 'block' : 'none'}}>{errorMsg}</span>
           </div>
