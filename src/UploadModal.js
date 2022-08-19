@@ -165,6 +165,8 @@ class UploadModal extends React.Component {
         }
       } else {
         attr += muted === 'false' ? '' : ' muted '
+        // 允许 iOS 不全屏播放
+        attr += 'playsinline webkit-playsinline '
         if (len === 1) {
           html = `<video src="${sources[0]}" width="${width}" height="${height}" ${attr}>你的浏览器不支持 video 标签</video>`
         } else {
@@ -218,6 +220,7 @@ class UploadModal extends React.Component {
 
   renderVideoConfig = () => {
     let {width, height, controls, autoplay, muted, loop} = this.state
+    const { autoplayHidden } = this.props
     return (
       <form style={style.paramsConfig}>
         <Label name='宽度'>
@@ -232,12 +235,12 @@ class UploadModal extends React.Component {
             <option value='false'>不显示</option>
           </Select>
         </Label>
-        <Label name='自动播放'>
+        {!autoplayHidden && <Label name='自动播放'>
           <Select value={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
             <option value='true'>是</option>
             <option value='false'>否</option>
           </Select>
-        </Label>
+        </Label>}
         <Label name='静音'>
           <Select value={muted} onChange={e => { this.changeConfig(e, 'muted') }}>
             <option value='true'>是</option>
@@ -256,6 +259,7 @@ class UploadModal extends React.Component {
 
   renderAudioConfig = () => {
     let {controls, autoplay, loop, poster, name, author} = this.state
+    const { autoplayHidden } = this.props
     return (
       <form style={style.paramsConfig}>
         <Label name='控制面板'>
@@ -264,12 +268,12 @@ class UploadModal extends React.Component {
             <option value='false'>不显示</option>
           </Select>
         </Label>
-        <Label name='自动播放'>
+        {!autoplayHidden && <Label name='自动播放'>
           <Select value={autoplay} onChange={e => { this.changeConfig(e, 'autoplay') }}>
             <option value='true'>是</option>
             <option value='false'>否</option>
           </Select>
-        </Label>
+        </Label>}
         <Label name='循环播放'>
           <Select value={loop} onChange={e => { this.changeConfig(e, 'loop') }}>
             <option value='true'>是</option>

@@ -10,6 +10,8 @@ Fork [ygunoil/react-ueditor-xiumi](https://gitee.com/ygunoil/react-ueditor-xiumi
 7. 上传音视频弹窗中，预览音视频之前是预览输入框中链接对应的资源，改为预览最后一个“添加”到列表的资源
 8. 上传音视频过程中，有 loading 动画代替进度百分比
 9. 增加 maxAudioMB 和 maxVideoMB 属性，分别限制最大可上传音视频的兆字节数
+10. 增加 autoplayHidden 属性，隐藏音视频参数的自动播放字段。主要为了避免在在编辑器中设置了“自动播放”，但在 iOS 微信中又被禁止自动播放，且初始时视频界面中央的播放按钮也不显示，对用户造成困惑
+11. 对 video 默认增加 playsinline webkit-playsinline 属性，避免在 iOS 中播放视频时始终是全屏播放
 
 ### 下载
 ```
